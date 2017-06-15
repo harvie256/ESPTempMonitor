@@ -6,6 +6,8 @@ Uses a ESP-07 module to allow both on-module and external antenna.
 
 PCB design is in Altium CircutStudio.
 
+![alt text](https://github.com/harvie256/ESPTempMonitor/blob/master/Photos/IMG_1799.JPG)
+
 ## Code Example
 
 TODO
