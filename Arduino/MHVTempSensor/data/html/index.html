@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MHV Temp Setup</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+	<!-- <link href="/css/main.css" rel="stylesheet" /> -->
+	<script src="/js/jquery.min.js"></script> 
+	<script src="/js/bootstrap.min.js"></script> 
+  </head>
+  <body>
+	<div id="NavBar"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+			<h2>Current Sensor Measurements</h2>
+			  <table class="table table-hover">
+				<thead>
+				  <tr>
+					<th>Sensor</th>
+					<th>Measurement</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <tr>
+					<td>Battery Voltage</td>
+					<td id="batVoltage"></td>
+				  </tr>
+				  <tr>
+					<td>Temperature &#176;C</td>
+					<td id="temperature"></td>
+				  </tr>
+				</tbody>
+			  </table>
+			</div>
+			</div>
+			<a href="/reset" class="btn btn-danger" role="button">Reset</a>
+		</div>
+
+	</div>
+	
+	<script>
+	$(document).ready( function () {
+		$("#NavBar").load("/html/navbar.html");
+		
+		function poll(){
+			$.getJSON('/sensor', function (data) {
+			  $("#temperature").text(data.Temperature);
+			  $("#batVoltage").text(data.BatteryVoltage);
+			});
+		}
+
+		setInterval(function(){ poll(); }, 5000);
+		poll();
+		
+		$("#btnReset").click( function()
+		{
+		   
+		});
+	});
+	</script>
+  </body>
+</html>
