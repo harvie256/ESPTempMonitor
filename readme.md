@@ -10,7 +10,7 @@ PCB design is in Altium CircutStudio.
 
 ## Code Example
 
-TODO
+See Arduino folder.  The contents of the data subdirectory needs to be loaded into SPIFFs along with the main code flashing.
 
 ## Tests
 
