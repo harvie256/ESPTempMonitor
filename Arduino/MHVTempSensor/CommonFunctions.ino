@@ -27,6 +27,11 @@ void setupIO(){
   pinMode(VDIV_EN_PIN, OUTPUT);
   digitalWrite(VDIV_EN_PIN, LOW);
   digitalWrite(LED_PIN, HIGH);
+
+  #ifdef DEBUG
+    pinMode(DEBUG_PIN_1, OUTPUT);
+    pinMode(DEBUG_PIN_2, OUTPUT);
+  #endif
 }
 
 void updateBatteryVoltage(){

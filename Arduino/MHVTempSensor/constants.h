@@ -7,3 +7,13 @@
 
 #define RTC_BOOT_OFFSET 0
 
+// Define DEBUG to enable serial printing and toggling debug pins for timing
+#define DEBUG
+
+#ifdef DEBUG
+
+#define DEBUG_PIN_1 2
+#define DEBUG_PIN_2 4
+#endif
+
+  

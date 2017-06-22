@@ -20,10 +20,22 @@ bool bootModePowerOn;
 
 void IsBootPowerOn()
 {
+  #ifdef DEBUG
+    Serial.println(ESP.getResetReason());
+  #endif
   bootModePowerOn = ESP.getResetReason().startsWith("External");
 }
 
 void setup() {
+  // Common setup for both modes of operation
+  setupIO();
+  Serial.begin ( 115200 );
+
+  #ifdef DEBUG
+  digitalWrite(DEBUG_PIN_1, HIGH);
+  digitalWrite(DEBUG_PIN_2, HIGH);
+  #endif
+
   IsBootPowerOn();
   if(bootModePowerOn){
     WebServerSetup();

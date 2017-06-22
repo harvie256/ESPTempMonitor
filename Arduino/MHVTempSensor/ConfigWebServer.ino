@@ -17,7 +17,7 @@ ESP8266WebServer server ( 80 );
 extern float temp;
 extern float batteryVoltage;
 
-#define ConfigurationServerTimeout 120000
+#define ConfigurationServerTimeout 60000
 bool ConfigurationServerTimeoutEnabled = 0;
 
 void generateAndSendJson(){
@@ -73,8 +73,6 @@ void WebServerSetupWiFi()
 
 
 void WebServerSetup() {
-  setupIO();
-  Serial.begin ( 115200 );
 
   WebServerSetupWiFi();
   
@@ -138,7 +136,7 @@ void WebServerLoop() {
 
   }
 
-  if(ConfigurationServerTimeoutEnabled && (millis() > 120000))
+  if(ConfigurationServerTimeoutEnabled && (millis() > ConfigurationServerTimeout))
   {
       ESP.reset();
   }
