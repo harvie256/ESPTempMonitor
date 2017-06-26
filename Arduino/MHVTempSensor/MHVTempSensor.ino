@@ -3,6 +3,7 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include <ArduinoJson.h>
+#include <Ticker.h>
 
 #include "constants.h"
 
@@ -18,12 +19,26 @@
  */
 bool bootModePowerOn;
 
+/*
+ * A seperate timer is being used as a 'watchdog' to prevent system lockup
+ * where one of the SDK functions is feeding the watchdog in an infinite loop.
+ * See: https://github.com/esp8266/Arduino/issues/1532
+ * 
+ * Instead of treating it as a normal watchdog, it's being setup as a one-shot
+ * affair with a timeout a few times longer than the normal data send loop time.
+ */
+Ticker tickerOSWatch;
+
 void IsBootPowerOn()
 {
   #ifdef DEBUG
     Serial.println(ESP.getResetReason());
   #endif
   bootModePowerOn = ESP.getResetReason().startsWith("External");
+}
+
+void ICACHE_RAM_ATTR osWatch(void) {
+  ESP.reset();  // hard reset
 }
 
 void setup() {
@@ -40,6 +55,7 @@ void setup() {
   if(bootModePowerOn){
     WebServerSetup();
   }else {
+    tickerOSWatch.attach_ms(OSWATCH_RESET_TIME  * 1000, osWatch);
     MainProgSetup();
   }
 }

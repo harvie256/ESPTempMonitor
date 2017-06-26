@@ -5,13 +5,12 @@
 
 #define ADC_CAL (3.68/812.0)
 
-#define RTC_BOOT_OFFSET 0
+#define OSWATCH_RESET_TIME 10
 
 // Define DEBUG to enable serial printing and toggling debug pins for timing
 #define DEBUG
 
 #ifdef DEBUG
-
 #define DEBUG_PIN_1 2
 #define DEBUG_PIN_2 4
 #endif
